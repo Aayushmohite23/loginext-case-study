@@ -1,0 +1,34 @@
+Loginext Java Project Analysis
+
+1. Structure of the System
+
+The system is composed primarily of two classes: 'Order' and 'DeliveryBoy'.
+
+    # Order Class
+    - Parameters/Variables: Typically includes orderId, customer details, order details, status, etc.
+    - Encapsulation: Used to keep order details private and accessible only via getters/setters. This is crucial because order information is user-sided and sensitive, so direct access is restricted to maintain data integrity and privacy.
+
+    # DeliveryBoy Class
+    - Parameters/Variables: Includes deliveryBoyId, name, status, freeTime, etc.
+    - No Encapsulation: DeliveryBoy details are not encapsulated, as their information is system-sided and does not require the same privacy as orders. This allows for easier access and manipulation within the scheduling logic.
+
+2. Data Structures Used for Scheduling
+
+    - PriorityQueue: Used to efficiently select the delivery boy with the least free time, and in case of a tie, the one with the lowest id. This is achieved using a custom comparator in Java that first compares freeTime, then id.
+    - ArrayList: Used to store orders and delivery partners. ArrayList allows dynamic resizing and fast addition, which is suitable for scenarios where new orders and delivery boys may be added from a database at any time.
+
+3. Business Logic
+
+The business logic is designed to handle some key functionalities, focusing on efficient assignment and tracking of orders and delivery boys. The scheduling algorithm ensures that orders are assigned to the most available delivery boy, updating their status and freeTime accordingly.
+
+4. Status Field of DeliveryBoy
+
+Each time a delivery boy is assigned an order, their `status` field is updated (e.g., from "free" to "busy"). This ensures real-time tracking of availability and prevents double assignment.
+
+5. Time Complexity and Scalability
+
+    The core scheduling algorithm leverages a greedy approach:
+    - Time Complexity: PriorityQueue operations (insertion, removal) are O(log n), making assignment efficient even as the number of delivery boys grows.
+    - Scalability: The use of ArrayList and PriorityQueue allows the system to handle large numbers of orders and delivery boys. The greedy strategy ensures that resources are utilized optimally, making the solution both scalable and efficient.
+
+In summary, the project uses encapsulation for sensitive user data, efficient data structures for scheduling, real-time status updates, and a scalable greedy algorithm for optimal performance.
